@@ -16,6 +16,7 @@ class Penjualan extends CI_Controller
 
   public function index()
   {
+    $data['title'] = 'Kelola Penjualan';
     $data['penjualan'] = $this->Penjualan_model->getAllPenjualan();
     $data['negosiator'] = $this->Penjualan_model->getNegosiators();
     $data['sopir'] = $this->Penjualan_model->getSopirs();
