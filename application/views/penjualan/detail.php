@@ -129,11 +129,9 @@
               <label for="barang">Barang</label>
               <select class="form-control" id="barang" name="barang" required>
                 <option value="">Pilih Barang</option>
-                <?php if (isset($barang) && is_array($barang)): ?>
-                <?php foreach ($barang as $b) : ?>
+                <?php foreach ($barang_list as $b) : ?>
                 <option value="<?= $b['id_barang'] ?>"><?= $b['nama_barang'] ?></option>
                 <?php endforeach; ?>
-                <?php endif; ?>
               </select>
             </div>
 
