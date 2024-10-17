@@ -10,41 +10,66 @@
       </div>
 
       <div class="card-body">
-        <table class="table table-bordered table-hover">
+        <?php
+        $grouped_penjualan = [];
+        foreach ($penjualan as $p) {
+          $tanggal = $p['tanggal_penjualan'];
+          if (!isset($grouped_penjualan[$tanggal])) {
+            $grouped_penjualan[$tanggal] = [];
+          }
+          $grouped_penjualan[$tanggal][] = $p;
+        }
+
+        foreach ($grouped_penjualan as $tanggal => $penjualan_group):
+        ?>
+        <h4><?= $tanggal ?></h4>
+        <table class="table table-bordered table-hover mb-4">
           <thead class="thead-light">
             <tr>
               <th>No</th>
-              <th>Tanggal Penjualan</th>
               <th>Nama Negosiator</th>
               <th>Nama Sopir</th>
               <th>Tuan Rumah</th>
               <th>ID Tuan Rumah</th>
-              <th>Aksi</th> <!-- Kolom Aksi untuk tombol -->
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
-            <?php $no = 1; ?>
-            <?php foreach ($penjualan as $p) : ?>
+            <?php
+              $no = 1;
+              $total_transaksi = count($penjualan_group);
+              $total_uang_akad = 0; 
+              foreach ($penjualan_group as $p):
+                $total_uang_akad += isset($p['uang_akad']) ? $p['uang_akad'] : 0;
+              ?>
             <tr>
               <td><?= $no++; ?></td>
-              <td><?= $p['tanggal_penjualan']; ?></td>
               <td><?= $p['nama_nego']; ?></td>
               <td><?= $p['nama_sopir']; ?></td>
               <td><?= $p['tuan_rumah']; ?></td>
               <td><?= $p['id_tuan_rumah']; ?></td>
               <td>
-                <a href="<?= base_url('penjualan/detail/' . $p['id']); ?>" class="btn btn-info">Detail Penjualan</a>
+                <a href="<?= base_url('penjualan/detail/' . $p['id']); ?>" class="btn btn-info">Detail</a>
                 <?php if (isset($p['id'])): ?>
                 <a href="<?= base_url('penjualan/delete/' . $p['id']); ?>" class="btn btn-danger"
-                  onclick="return confirm('Apakah Anda yakin ingin menghapus penjualan ini?');">Hapus Penjualan</a>
+                  onclick="return confirm('Apakah Anda yakin ingin menghapus penjualan ini?');">Hapus</a>
                 <?php else: ?>
-                <span class="text-danger">ID Penjualan tidak ditemukan</span>
+                <span class="text-danger">ID tidak ditemukan</span>
                 <?php endif; ?>
               </td>
             </tr>
             <?php endforeach; ?>
           </tbody>
+          <tfoot>
+            <!-- <tr>
+              <td colspan="6">
+                <strong>Jumlah Transaksi: <?= $total_transaksi ?></strong><br>
+                <strong>Total Uang Akad: Rp <?= number_format($total_uang_akad, 0, ',', '.') ?></strong>
+              </td>
+            </tr> -->
+          </tfoot>
         </table>
+        <?php endforeach; ?>
       </div>
     </div>
   </section>
