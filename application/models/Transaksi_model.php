@@ -83,12 +83,12 @@ class Transaksi_model extends CI_Model
     }
 
 
-    public function get_by_penjualan_id($penjualan_id)
+    public function get_transaksi_by_penjualan_id($penjualan_id)
     {
-        $this->db->select('transaksi.*, users.nama_lengkap as nama_sales, barang.nama_barang');
-        $this->db->from($this->table);
-        $this->db->join('users', 'users.id_user = transaksi.id_sales');
-        $this->db->join('barang', 'barang.id_barang = transaksi.id_barang');
+        $this->db->select('transaksi.*, mgt_user.nama_lengkap AS nama_sales, barang.nama_barang');
+        $this->db->from('transaksi');
+        $this->db->join('mgt_user', 'transaksi.id_sales = mgt_user.id_user', 'left');
+        $this->db->join('barang', 'transaksi.id_barang = barang.id_barang', 'left');
         $this->db->where('transaksi.id_tuan_rumah', $penjualan_id);
         return $this->db->get()->result_array();
     }

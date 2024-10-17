@@ -89,7 +89,7 @@ class Penjualan extends CI_Controller
     }
 
     $data['penjualan'] = $penjualan;
-    $data['transaksis'] = $this->Penjualan_model->get_transaksi_by_penjualan_id($id);
+    $data['transaksis'] = $this->Transaksi_model->get_transaksi_by_penjualan_id($id);
     $data['sales'] = $this->UserModel->getSales();
     $data['barang_list'] = $this->Barang_model->getAllBarang();
 
