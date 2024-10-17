@@ -113,4 +113,6 @@ class Transaksi extends CI_Controller
             redirect('transaksi');
         }
     }
+
+    
 }

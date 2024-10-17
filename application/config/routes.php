@@ -68,3 +68,10 @@ $route['gantipass']['post'] = 'user/prosesGantipass';
 $route['profile']['get'] = 'user/profile';
 $route['profile/edit']['get'] = 'user/editProfile';
 $route['profile']['post'] = 'user/prosesProfile';
+
+$route['penjualan'] = 'penjualan/index';
+$route['penjualan/create'] = 'penjualan/create';
+$route['penjualan/store'] = 'penjualan/store';
+$route['penjualan/delete/(:num)'] = 'penjualan/delete/$1';
+$route['penjualan/detail/(:any)'] = 'penjualan/detail/$1';
+$route['penjualan/add_transaksi'] = 'penjualan/add_transaksi';

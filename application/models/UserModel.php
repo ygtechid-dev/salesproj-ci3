@@ -1,6 +1,5 @@
 <?php
 
-
 require_once('application/models/BaseModel.php');
 
 class UserModel extends BaseModel
@@ -29,12 +28,11 @@ class UserModel extends BaseModel
     public function getUserLogin($username)
     {
         $this->db->select('tb_user.*, nama_role');
-        $this->db->where('username ', $username);
+        $this->db->where('username', $username);
         $this->db->or_where('email', $username);
         $this->db->join('tb_role', 'tb_user.id_role = tb_role.id');
         return $this->db->get('tb_user');
     }
-
 
     public function getRole()
     {
@@ -49,5 +47,16 @@ class UserModel extends BaseModel
             $this->db->where('id_role', $id_role);
         }
         return $this->db->get('tb_user')->result_array();
+    }
+
+    // Add this method
+    public function getSales()
+    {
+        $this->db->select('mgt_user.id_user, mgt_user.nama_lengkap');
+        $this->db->from('mgt_user');
+        $this->db->join('mgt_posisi', 'mgt_user.posisi = mgt_posisi.id_posisi');
+        $this->db->where('mgt_posisi.nama_posisi', 'Sales'); // Sesuaikan dengan nama posisi yang sesuai
+        $query = $this->db->get();
+        return $query->result_array();
     }
 }
